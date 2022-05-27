@@ -25,6 +25,15 @@ def n_f32_theory():
     print(f'Theory: stop at n = {n}')
     return n
 
+def n_f64(limit):
+    n = 1
+    sum_64 = np.float64(0)
+    while n <= limit:
+        sum_64 = np.float64(sum_64 + np.float64(1 / n))
+        n += 1
+
+    return sum_64
+
 def n_f32_error(limit):
     n = 1
     sum_32 = np.float32(0)
@@ -46,4 +55,7 @@ def n_f64_estimation(n):
 limit = n_f32()
 n_f32_theory()
 n_f32_error(limit)
-print(fsolve(n_f64_estimation, [1.0])[0])
+limit_64 = fsolve(n_f64_estimation, [1.0])[0]
+print(limit_64)
+print(limit_64 / 10000000 * 5 / 3600 / 24)
+n_f64(100000000)
