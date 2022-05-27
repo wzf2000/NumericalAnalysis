@@ -40,7 +40,8 @@ def Jacobi(A, b):
             if i < n - 1:
                 x[i] -= A[i][i + 1] * y[i + 1]
             x[i] /= A[i][i]
-        if np.array_equal(x.round(4), y.round(4)):
+        if np.linalg.norm(x - y, ord=np.inf) <= 1e-3:
+            print(x - y)
             return x, iter
 
 def GS(A, b):
@@ -57,7 +58,7 @@ def GS(A, b):
             if i < n - 1:
                 x[i] -= A[i][i + 1] * x[i + 1]
             x[i] /= A[i][i]
-        if np.array_equal(x.round(4), y.round(4)):
+        if np.linalg.norm(x - y, ord=np.inf) <= 1e-3:
             return x, iter
 
 def SOR(A, b, w):
@@ -76,7 +77,7 @@ def SOR(A, b, w):
                 z[i] -= A[i][i + 1] * x[i + 1]
             z[i] /= A[i][i]
             x[i] = (1 - w) * x[i] + w * z[i]
-        if np.array_equal(x.round(4), y.round(4)):
+        if np.linalg.norm(x - y, ord=np.inf) <= 1e-3:
             return x, iter
 
 def work(epsilon):
@@ -114,6 +115,7 @@ def work(epsilon):
     print_result('SOR', SOR_y, iter)
 
     plt.legend()
+    plt.savefig(f'{epsilon}.png')
     plt.show()
 
 work(1)
