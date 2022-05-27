@@ -1,0 +1,1 @@
+所有代码都可以通过 python XXX.py 方式运行，需要事先安装好相关的包，包括 numpy、scipy、matplotlib、mpmath 这些依赖。
